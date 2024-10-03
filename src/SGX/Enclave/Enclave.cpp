@@ -154,8 +154,6 @@ void ecall_data_insert(char *newdata, void *mbdes, char **mbpool)
 void ecall_joinsearch1(char **ein0, char **ein1, char **ein2, char **ein3, char **ein4, char **ein5, char **ein6, char **ein7, char **ein8, char **ein9, void *mbdes, char **mbpool)
 {
 
-    clock_t s2, e2;
-    s2 = sgx_clock();
 
     ocall_open_result();
     ocall_open_enquery();
@@ -541,7 +539,6 @@ void ecall_joinsearch1(char **ein0, char **ein1, char **ein2, char **ein3, char 
     ocall_close_enquery();
     ocall_close_result();
 
-    e2 = sgx_clock();
 }
 
 void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, char **ein4, char **ein5, char **ein6, char **ein7, char **ein8, char **ein9, void *mbdes, char **mbpool)
@@ -549,27 +546,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
     ocall_open_result();
     ocall_open_enquery();
 
-    clock_t s2, e2;
-    clock_t s3, e3;
-    clock_t s4, e4;
-    clock_t s5, e5;
-    clock_t s6, e6;
-    clock_t s7, e7;
-    clock_t s8, e8;
-    clock_t s9, e9;
-    clock_t s10, e10;
-    clock_t s11, e11;
-    clock_t s12, e12;
-    clock_t s13, e13;
-    clock_t s14, e14;
-    clock_t s15, e15;
-    clock_t s16, e16;
-    clock_t s17, e17;
-    clock_t s18, e18;
-    clock_t s19, e19;
-    clock_t s20, e20;
-    s2 = sgx_clock();
-    s3 = sgx_clock();
 
     char *enumber = new char[25];
     ocall_read_s(enumber, 25);
@@ -577,7 +553,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
     string number_decode_base64 = base64_decode(senumber);
     string sn = aes_256_cbc_decode(cbc_key1, iv0, number_decode_base64);
     int num = atoi(sn.c_str());
-    printf("num:%d \n", num);
     liv1++;
 
     vector<int> table;
@@ -628,16 +603,12 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
         baseline_bigsi.insertion(0, p_decode);
     }
 
-    e3 = sgx_clock();
-    s7 = sgx_clock();
     if (num == 2)
     {
 
         vector<string> Result_0;
         vector<string> Result_1;
 
-        printf("len1: %d\n", len1);
-        s4 = sgx_clock();
         for (int p = 0; p < len1; p++)
         {
             string enindex = ein1[p];
@@ -656,8 +627,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
                 Result_1.push_back("0");
             }
         }
-        e4 = sgx_clock();
-        s5 = sgx_clock();
         for (int p = 0; p < len0; p++)
         {
             if (baseline_bigsi.obfmtquery(1, p_decode_0[p]) == 1)
@@ -670,8 +639,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
                 Result_0.push_back("0");
             }
         }
-        e5 = sgx_clock();
-        printf("\n0集合元素是否在1中: %f us\n", (double)((e5 - s5)));
 
         vector<pair<string, int>> F_0;
         count = 0;
@@ -690,8 +657,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
 
         if (count == 0)
         {
-            e2 = sgx_clock();
-            printf("\nsbf执行时间: %f us\n", (double)((e2 - s2)));
             ocall_close_enquery();
             ocall_close_result();
             return;
@@ -744,7 +709,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
 
         if (count == 0)
         {
-            e2 = sgx_clock();
             ocall_close_enquery();
             ocall_close_result();
             return;
@@ -815,7 +779,6 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
         vector<bool> ResultVector_2(len2, false);
         vector<string> p_decode_2(len2);
         vector<string> IntersectResult_2;
-        printf("len2: %d\n", len2);
 
         for (int p = 0; p < len1; p++)
         {
@@ -1904,13 +1867,9 @@ void ecall_joinsearch1_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
                     }
                 }
             }
-            printf("The value of count1 is: %d\n", count1);
         }
     }
 
-    e2 = sgx_clock();
-    e7 = sgx_clock();
-    printf("\ntra(obli)执行时间: %f us\n", (double)((e2 - s2)));
     ocall_close_enquery();
     ocall_close_result();
 }
@@ -1920,8 +1879,6 @@ void ecall_joinsearch2(char **ein0, char **ein1, char **ein2, char **ein3, char 
     ocall_open_result();
     ocall_open_enquery();
 
-    clock_t s2, e2;
-    s2 = sgx_clock();
 
     char *enumber = new char[25];
     ocall_read_s(enumber, 25);
@@ -1929,7 +1886,6 @@ void ecall_joinsearch2(char **ein0, char **ein1, char **ein2, char **ein3, char 
     string number_decode_base64 = base64_decode(senumber);
     string sn = aes_256_cbc_decode(cbc_key1, iv0, number_decode_base64);
     int num = atoi(sn.c_str());
-    printf("num:%d \n", num);
     liv1++;
 
     vector<int> table;
@@ -2269,8 +2225,6 @@ void ecall_joinsearch2(char **ein0, char **ein1, char **ein2, char **ein3, char 
         }
     }
 
-    e2 = sgx_clock();
-    printf("\nsbf执行时间: %f us\n", (double)((e2 - s2)));
 
     ocall_close_enquery();
     ocall_close_result();
@@ -2281,8 +2235,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
     ocall_open_result();
     ocall_open_enquery();
 
-    clock_t s2, e2;
-    s2 = sgx_clock();
 
     char *enumber = new char[25];
     ocall_read_s(enumber, 25);
@@ -2290,7 +2242,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
     string number_decode_base64 = base64_decode(senumber);
     string sn = aes_256_cbc_decode(cbc_key1, iv0, number_decode_base64);
     int num = atoi(sn.c_str());
-    printf("num:%d \n", num);
     liv1++;
 
     vector<int> table;
@@ -2339,15 +2290,12 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
         p_decode_0[p] = p_decode;
         cscbf.insertion(to_string(0), p_decode);
     }
-    printf("len0: %d\n", len0);
 
     if (num == 2)
     {
 
         vector<string> Result_0;
         vector<string> Result_1;
-
-        printf("len1: %d\n", len1);
         for (int p = 0; p < len1; p++)
         {
             string enindex = ein1[p];
@@ -2396,8 +2344,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
 
         if (count == 0)
         {
-            e2 = sgx_clock();
-            printf("\nsbf执行时间: %f us\n", (double)((e2 - s2)));
             ocall_close_enquery();
             ocall_close_result();
             return;
@@ -2450,8 +2396,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
 
         if (count == 0)
         {
-            e2 = sgx_clock();
-            printf("\nsbf执行时间: %f us\n", (double)((e2 - s2)));
             ocall_close_enquery();
             ocall_close_result();
             return;
@@ -2523,7 +2467,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
         vector<bool> ResultVector_2(len2, false);
         vector<string> p_decode_2(len2);
         vector<string> IntersectResult_2;
-        printf("len2: %d\n", len2);
 
         for (int p = 0; p < len1; p++)
         {
@@ -2729,8 +2672,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
             }
         }
 
-        //     printf("(%s, %d) ", elem.first.c_str(), elem.second);
-
         chunknumber = F_0.size() / (count) + 1;
         Chunks0.clear();
         Chunks0 = vector<vector<pair<string, int>>>(chunknumber);
@@ -2746,7 +2687,6 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
             Chunks0.back().push_back(make_pair("000", -1));
         }
 
-        //         printf("(%s, %d) ", elem.first.c_str(), elem.second);
 
         for (int h = 0; h < chunknumber; h++)
         {
@@ -3605,12 +3545,8 @@ void ecall_joinsearch2_obl(char **ein0, char **ein1, char **ein2, char **ein3, c
                     }
                 }
             }
-            printf("The value of count1 is: %d\n", count1);
         }
     }
-
-    e2 = sgx_clock();
-    printf("\nsbf(obli)执行时间: %f us\n", (double)((e2 - s2)));
     ocall_close_enquery();
     ocall_close_result();
 }
