@@ -7,6 +7,7 @@
 #include <unordered_map>
 #include "time.h"
 
+// Constructor: open the input file and parse the table content.
 Table::Table(string fileName, string tableName) : _fileName(fileName), 
   _tableName(tableName) {
   _file.open(_fileName.c_str(), fstream::in);
@@ -16,6 +17,7 @@ Table::Table(string fileName, string tableName) : _fileName(fileName),
   Parse();
 }
 
+// Extract a string column from the table and return each value with its row index.
 vector<pair<string,int>> Table::ExtractStringColumn(int colId, const Table& table) {
   vector<pair<string,int>> column;
   for (int i = 0; i < table._table.size(); i++) {
@@ -24,6 +26,7 @@ vector<pair<string,int>> Table::ExtractStringColumn(int colId, const Table& tabl
   return column;
 }
 
+// Find the column index by column name.
 int Table::FindColumn(string colName) const {
   int columnId = -1;
   for (int i = 0; i < _headers.size(); i++) {
@@ -37,6 +40,7 @@ int Table::FindColumn(string colName) const {
   return columnId;
 }
 
+// Parse the CSV file into table headers and row values.
 void Table::Parse() {
   string line;
   string temp;
@@ -57,7 +61,7 @@ void Table::Parse() {
   }
 }
 
-
+// Build an encrypted index for the specified equality column and write encoded keys to the output file.
 void Table::BuildIndex(string key_file,string eneq_file,string EqColName)
 {
   int EqColId = FindColumn(EqColName);
